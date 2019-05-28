@@ -444,6 +444,9 @@ public class Main {
 	}
 	
 	private boolean printTree(TreeElement next) {
+		if(next==null) {
+			return true;
+		}
 		TreeElement left = next.getLeft();
 		TreeElement right = next.getRight();
 		boolean returned = false;
