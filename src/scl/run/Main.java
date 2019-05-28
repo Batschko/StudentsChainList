@@ -161,8 +161,8 @@ public class Main {
 	private void changeName() {
 		System.out.print(""
 				+ "Choose number of selection (0 to exit): \n"
-				+ "1: Matriculation number\n"
-				+ "2: Name\n");
+				+ "1: Name\n"
+				+ "2: Matriculation number\n");
 		boolean loop = true;
 		int selection = -1;
 		while(loop) {
@@ -179,9 +179,25 @@ public class Main {
 		}
 		Student student = null;
 		if(selection==1) {
-			student = this.searchNumber(true);
+			List<TreeElement> studentElements=this.searchName(false);
+			System.out.println("Choose number of student:");
+			for(int i=0;i<studentElements.size();i++) {
+				Student s = studentElements.get(i).getContent();
+				System.out.println((i+1)+": "+s.getName()+" - "+s.getMatriculationNumber());
+			}
+			int number = -1;
+			while(loop) {
+				System.out.print(">>> ");
+				number = InputReader.readInt();
+				if(number <= 0 || number > studentElements.size()) {
+					System.out.println("Input must be a valid number!");
+				} else {
+					loop = false;
+				}
+			}
+			student =  studentElements.get(number-1).getContent();
 		}if(selection==2) {
-			student = this.searchNumber(true);
+			student = this.searchNumber(false);
 		}
 		if(student == null) {
 			System.out.println("Something went wrong...");
@@ -199,8 +215,8 @@ public class Main {
 	private void changeMN() {
 		System.out.print(""
 				+ "Choose number of selection (0 to exit): \n"
-				+ "1: Matriculation number\n"
-				+ "2: Name\n");
+				+ "1: Name\n"
+				+ "2: Matriculation number\n");
 		boolean loop = true;
 		int selection = -1;
 		while(loop) {
@@ -216,10 +232,29 @@ public class Main {
 			}
 		}
 		Student student = null;
+		
 		if(selection==1) {
-			student = this.searchNumber(true);
+			List<TreeElement> studentElements=this.searchName(false);
+			System.out.println("Choose number of student:");
+			for(int i=0;i<studentElements.size();i++) {
+				Student s = studentElements.get(i).getContent();
+				System.out.println((i+1)+": "+s.getName()+" - "+s.getMatriculationNumber());
+			}
+			int number = -1;
+			loop=true;
+			while(loop) {
+				System.out.print(">>> ");
+				number = InputReader.readInt();
+				if(number <= 0 || number > studentElements.size()) {
+					System.out.println("Input must be a valid number!");
+				} else {
+					loop = false;
+				}
+			}
+			student =  studentElements.get(number-1).getContent();
+			
 		}if(selection==2) {
-			student = this.searchNumber(true);
+			student = this.searchNumber(false);
 		}
 		
 		if(student == null) {
