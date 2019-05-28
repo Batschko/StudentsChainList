@@ -7,6 +7,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Program handling the BinaryTree
+ */
 public class Main {
 	
 	private String menu =""
@@ -32,6 +35,9 @@ public class Main {
 	private StudentWriter sw;
 	private boolean loop;
 	
+	/**
+	 * Initialize the programm - Read the students.txt file
+	 */
 	public Main() {
 		loop = true;
 		br = new BufferedReader(new InputStreamReader(System.in));
@@ -57,10 +63,17 @@ public class Main {
 		numberList = new BinaryTree(data, true);
 	}
 	
+	/**
+	 * Runs the progamm
+	 * @param args command line arguments
+	 */
 	public static void main(String[] args) {
 		new Main().run();
 	}
 	
+	/**
+	 * Run the Main application
+	 */
 	public void run() {
 		while(loop) {
 			System.out.println(menu);
@@ -75,6 +88,10 @@ public class Main {
 		}
 	}
 	
+	/**
+	 * Switch to choose the menupoint to execute
+	 * @param command Argument from the menu
+	 */
 	private void execute(String command) {
 		switch(command.toUpperCase()) {
 		case "L": empty(); break;
@@ -93,71 +110,10 @@ public class Main {
 		}
 	}
 	
-	private Student getStudent() {
-		System.out.print(""
-				+ "Choose number of selection (0 to exit): \n"
-				+ "1: Matriculation number\n"
-				+ "2: Name\n");
-		boolean loop = true;
-		int selection = -1;
-		while(loop) {
-			System.out.print(">>> ");
-			selection = InputReader.readInt();
-			if(selection < 0 || selection > 2) {
-				System.out.println("Must be in range!");
-			} else if(selection == 0) {
-				System.out.println();
-				return null;
-			} else {
-				loop = false;
-			}
-		}
-		
-		Student student = null;
-		if(selection==1) {
-			Student searched = this.searchNumber(false);
-			String name = searched.getName();
-			int mn = searched.getMatriculationNumber();
-			Student removedA = nameList.remove(name, mn);
-			Student removedB = numberList.remove(mn);
-			if(!removedA.equals(removedB)) {
-				System.out.println("Something went wrong!"); 
-				return null;
-			}
-			student = removedA;
-		} else if(selection == 2) {
-			List<TreeElement> studentElements = searchName(false); 
-			
-			System.out.println("Choose number of student:");
-			for(int i=0;i<studentElements.size();i++) {
-				Student s = studentElements.get(i).getContent();
-				System.out.println((i+1)+": "+s.getName()+" - "+s.getMatriculationNumber());
-			}
-			int number = -1;
-			while(loop) {
-				System.out.print(">>> ");
-				number = InputReader.readInt();
-				if(number <= 0 || number > studentElements.size()) {
-					System.out.println("Input must be a valid number!");
-				} else {
-					loop = false;
-				}
-			}
-			Student searched =  studentElements.get(number-1).getContent();
-			int mn = searched.getMatriculationNumber();
-			String name = searched.getName();
-			Student removedA = nameList.remove(name, mn);
-			Student removedB = numberList.remove(mn);
-			if(!removedA.equals(removedB)) {
-				System.out.println("Something went wrong!"); 
-				return null;
-			}
-			student = removedA;
-		}
-		
-		return student;
-	}
-	
+	/**
+	 * Change the name of a specific student object by removing, changing the object and adding it again.
+	 * If its wanted to identify by name an extra selection will be shown in case there are multiple students with identical names.
+	 */
 	private void changeName() {
 		System.out.print(""
 				+ "Choose number of selection (0 to exit): \n"
@@ -212,6 +168,10 @@ public class Main {
 		}
 	}
 	
+	/**
+	 * Change the matriculation number of a specific student object by removing, changing the object and adding it again.
+	 * If its wanted to identify by name an extra selection will be shown in case there are multiple students with identical names.
+	 */
 	private void changeMN() {
 		System.out.print(""
 				+ "Choose number of selection (0 to exit): \n"
@@ -279,6 +239,11 @@ public class Main {
 		}
 	}
 	
+	/**
+	 * Removes a student by name.
+	 * For each name there is an extra selection in case there are multiple students with the same name.
+	 * @return Removed student
+	 */
 	private Student removeName() {
 		String name = null;
 		boolean loop = true;
@@ -322,6 +287,10 @@ public class Main {
 		return removedA;
 	}
 	
+	/**
+	 * Remove student by Matriculation Number
+	 * @return Removed student
+	 */
 	private Student removeMN() {
 		int mn = -1;
 		boolean loop = true;
@@ -349,7 +318,11 @@ public class Main {
 		return removedA;
 	}
 	
-	//WARUM BALLERT DER NULL IN DIE ARRAYLIST?????
+	/**
+	 * Search for Students by name
+	 * @param print If true the method will print all found students
+	 * @return All found students
+	 */
 	private List<TreeElement> searchName(boolean print) {
 		String name=null;
 		boolean loop = true;
@@ -395,7 +368,11 @@ public class Main {
 	}
 	
 
-	
+	/**
+	 * Print a student by matriculation number
+	 * @param print If true the method will print the found student
+	 * @return Found student
+	 */
 	private Student searchNumber(boolean print) {
 		int mNr=0;
 		boolean loop = true;
@@ -423,7 +400,12 @@ public class Main {
 		}
 	}
 
-	
+	/**
+	 * Search recursive trough the tree by matriculation number
+	 * @param next Next element in tree - first must be the root
+	 * @param mNr matriculation number to search for
+	 * @return The TreeElement with the found matriculation number
+	 */
 	private TreeElement binaryNumberSearch(TreeElement next,int mNr) {
 		if(next==null) {
 			return null;
@@ -436,6 +418,12 @@ public class Main {
 		}
 	}
 	
+	/**
+	 * Search recursive trough the tree by name
+	 * @param next Next element in tree - first must be the root
+	 * @param mNr Name to search for
+	 * @return The TreeElement with the found name
+	 */
 	private TreeElement binaryNameSearch(TreeElement next,String name) {
 		if(next==null) {
 			return null;
@@ -449,7 +437,9 @@ public class Main {
 		return null;
 	}
 	
-	
+	/**
+	 * Print the data Array
+	 */
 	private void printArray() {
 		System.out.println("\n--- Secret Array! ---");
 		for(Student s :data) {
@@ -458,12 +448,20 @@ public class Main {
 		System.out.println("---------------------\n");
 	}
 
+	/**
+	 * Empty both lists
+	 */
 	private void empty() {
 		numberList.empty();
 		nameList.empty();
 		data=new Student[0];
 	}
 	
+	/**
+	 * Print the whole tree recursive
+	 * @param next Next Element
+	 * @return returns true when the method returns - used as indicator in earlier recusrive layer
+	 */
 	private boolean printTree(TreeElement next) {
 		if(next==null) {
 			return true;
@@ -491,19 +489,28 @@ public class Main {
 		return true;
 	}
 	
+	/**
+	 * Print the Name List
+	 */
 	private void sortName() {
 		System.out.println("\n--- Students ---");
 		printTree(nameList.getRoot());
 		System.out.println("----------------\n");
 	}
 	
+	/**
+	 * Print the number list
+	 */
 	private void sortMN() {
 		System.out.println("\n--- Students ---");
 		printTree(numberList.getRoot());
 		System.out.println("----------------\n");
 	}
 	
-	
+	/**
+	 * Print a single student
+	 * @param student Student to print
+	 */
 	private void printStudent(Student student) {
 		if(student==null) {
 			System.out.println("No student found");
@@ -512,7 +519,9 @@ public class Main {
 		}
 	}
 	
-	
+	/**
+	 * Insert a student to the tree
+	 */
 	private void insert() {
 		String name = "";
 		String mn = "";
@@ -552,6 +561,10 @@ public class Main {
 		numberList.add(student);
 	}
 	
+	/**
+	 * Add student to array and extend it
+	 * @param student
+	 */
 	private void addToArray(Student student) {
 		Student[] ndata = new Student[data.length+1];
 		for(int i=0;i<data.length;i++) {
@@ -561,6 +574,10 @@ public class Main {
 		data = ndata;
 	}
 	
+	/**
+	 * Remove from Array and decrease it
+	 * @param student
+	 */
 	private void removeFromArray(Student student) {
 		for(int i=0;i<data.length;i++) {
 			if(data[i].equals(student)) {
@@ -574,6 +591,11 @@ public class Main {
 		data = ndata;
 	}
 	
+	/**
+	 * Check if number is in data array
+	 * @param mn
+	 * @return true if it is
+	 */
 	private boolean checkMnumber(int mn) {
 		for(int i=0;i<data.length;i++) {
 			if(data[i].getMatriculationNumber()==mn) {
@@ -583,6 +605,9 @@ public class Main {
 		return true;
 	}
 	
+	/**
+	 * Save the list to file
+	 */
 	private void save() {
 		try {
 			sw.writeData(data);
@@ -591,6 +616,9 @@ public class Main {
 		}
 	}
 	
+	/**
+	 * End application
+	 */
 	private void exit() {
 		loop = false;
 	}

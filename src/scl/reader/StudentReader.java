@@ -9,11 +9,21 @@ public class StudentReader {
 	private File file;
 	private BufferedReader br;
 	
+	/**
+	 * Constructor for StudentReader
+	 * @throws FileNotFoundException
+	 * @throws IllegalArgumentException
+	 */
 	public StudentReader() throws FileNotFoundException, IllegalArgumentException {
 		file = new File("students/students.txt");
 		br = new BufferedReader(new FileReader(file));
 	}
 	
+	/**
+	 * Reads the students.txt file
+	 * @return An array of all read students
+	 * @throws IOException
+	 */
 	public Student[] readFile() throws IOException {
 		List<String> names = new ArrayList<String>();
 		List<Integer> numbers = new ArrayList<Integer>();

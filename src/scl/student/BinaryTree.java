@@ -13,20 +13,37 @@ public class BinaryTree {
 		create(data);
 	}
 	
+	/**
+	 * Creates the Tree by the given data array
+	 * @param data
+	 */
 	public void create(Student[] data) {
 		for(Student s : data) {
 			this.add(s);
 		}
 	}
 	
+	/**
+	 * Empties the tree
+	 */
 	public void empty() {
 		root = null;
 	}
 	
+	/**
+	 * Get root of Tree
+	 * @return root
+	 */
 	public TreeElement getRoot() {
 		return this.root;
 	}
 	
+	/**
+	 * Gets a specific Element by name - recursive
+	 * @param name
+	 * @param element Next Element in tree
+	 * @return The element that holds the object with the name
+	 */
 	public TreeElement get(String name, TreeElement element) {
 		Student student = element.getContent();
 		String studName = student.getName();
@@ -41,6 +58,12 @@ public class BinaryTree {
 		}
 	}
 	
+	/**
+	 * Gets a specific Element by matriculation number - recursive
+	 * @param name
+	 * @param element Next Element in tree
+	 * @return The element that holds the object with the matriculation number
+	 */
 	private TreeElement get(int mn, TreeElement element) {
 		Student student = element.getContent();
 		int studMn = student.getMatriculationNumber();
@@ -55,6 +78,16 @@ public class BinaryTree {
 		}
 	}
 	
+	/**
+	 * Swaps Element and SwapElement - the before Elements are needed to maintain the tree structure
+	 * @param before Before Element
+	 * @param element Element to be swapped
+	 * @param swapElement Element that will be swapped with element
+	 * @param beforeSwap element before swapElement
+	 * @param dir 1 if we came from right, -1 if we came from left in the tree
+	 * @param right true if we are in the right subtree
+	 * @return returns the student of element
+	 */
 	private Student swapElements(TreeElement before, TreeElement element, TreeElement swapElement, TreeElement beforeSwap, int dir, boolean right) {
 		
 		TreeElement eR = element.getRight();
@@ -85,6 +118,12 @@ public class BinaryTree {
 
 	}
 	
+	/**
+	 * Get the Essentials - means the Element that need to be swapped, the element before it and the direction - if element is left or right to before
+	 * @param element Element to start searching
+	 * @param mn number to search by
+	 * @return List with before on 0, element on 1 and dir on 2
+	 */
 	private List getEssentialElements(TreeElement element, int mn) {
 		
 			boolean loop = true;
@@ -117,6 +156,12 @@ public class BinaryTree {
 			return essentials;
 	}
 	
+	/**
+	 * Get the Essentials - means the Element that need to be swapped, the element before it and the direction - if element is left or right to before
+	 * @param element Element to start searching
+	 * @param mn name to search by
+	 * @return List with before on 0, element on 1 and dir on 2
+	 */
 	private List getEssentialElements(TreeElement element, String name, int mn) {
 		
 		boolean loop = true;
@@ -149,6 +194,13 @@ public class BinaryTree {
 		return essentials;
 	}
 	
+	/**
+	 * Remove the the given element
+	 * @param before TreeElement before Element
+	 * @param element element to remove
+	 * @param dir 1 if element is right to before, -1 if left
+	 * @return the Student of eleme
+	 */
 	private Student remove(TreeElement before, TreeElement element, int dir) {
 		if(element.hasRight()) {
 			boolean onlyRight = true;
@@ -232,6 +284,11 @@ public class BinaryTree {
 		return null;
 	}
 	
+	/**
+	 * Remove a Student by Matriculation number
+	 * @param mn
+	 * @return Removed Student
+	 */
 	public Student remove(int mn) {
 		TreeElement element = this.getRoot();
 		if(!element.hasLeft() && !element.hasRight()) {
@@ -248,6 +305,11 @@ public class BinaryTree {
 		
 	}
 	
+	/**
+	 * Remove a Student by Matriculation number and Name
+	 * @param mn
+	 * @return Removed Student
+	 */
 	public Student remove(String name, int mn) {
 		TreeElement element = this.getRoot();
 		if(!element.hasLeft() && !element.hasRight()) {
@@ -264,6 +326,10 @@ public class BinaryTree {
 		
 	}
 	
+	/**
+	 * Add given student to the tree
+	 * @param student
+	 */
 	public void add(Student student) {
 		
 		TreeElement element = new TreeElement(student, null, null);
