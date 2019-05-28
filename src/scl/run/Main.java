@@ -159,7 +159,29 @@ public class Main {
 	}
 	
 	private void changeName() {
-		Student student = this.getStudent();
+		System.out.print(""
+				+ "Choose number of selection (0 to exit): \n"
+				+ "1: Matriculation number\n"
+				+ "2: Name\n");
+		boolean loop = true;
+		int selection = -1;
+		while(loop) {
+			System.out.print(">>> ");
+			selection = InputReader.readInt();
+			if(selection < 0 || selection > 2) {
+				System.out.println("Must be in range!");
+			} else if(selection == 0) {
+				System.out.println();
+			} else {
+				loop = false;
+			}
+		}
+		Student student = null;
+		if(selection==1) {
+			student = this.searchNumber(true);
+		}if(selection==2) {
+			student = this.searchNumber(true);
+		}
 		if(student == null) {
 			System.out.println("Something went wrong...");
 		} else {
@@ -174,11 +196,34 @@ public class Main {
 	}
 	
 	private void changeMN() {
-		Student student = this.getStudent();
+		System.out.print(""
+				+ "Choose number of selection (0 to exit): \n"
+				+ "1: Matriculation number\n"
+				+ "2: Name\n");
+		boolean loop = true;
+		int selection = -1;
+		while(loop) {
+			System.out.print(">>> ");
+			selection = InputReader.readInt();
+			if(selection < 0 || selection > 2) {
+				System.out.println("Must be in range!");
+			} else if(selection == 0) {
+				System.out.println();
+			} else {
+				loop = false;
+			}
+		}
+		Student student = null;
+		if(selection==1) {
+			student = this.searchNumber(true);
+		}if(selection==2) {
+			student = this.searchNumber(true);
+		}
+		
 		if(student == null) {
 			System.out.println("Something went wrong...");
 		} else {
-			boolean loop = true;
+			loop = true;
 			int number = -1;
 			while(loop) {
 				System.out.print("New Number for "+student.getName()+": ");
