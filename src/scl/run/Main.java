@@ -172,6 +172,7 @@ public class Main {
 				System.out.println("Must be in range!");
 			} else if(selection == 0) {
 				System.out.println();
+				return;
 			} else {
 				loop = false;
 			}
@@ -209,6 +210,7 @@ public class Main {
 				System.out.println("Must be in range!");
 			} else if(selection == 0) {
 				System.out.println();
+				return;
 			} else {
 				loop = false;
 			}
@@ -248,6 +250,10 @@ public class Main {
 
 		List<TreeElement> studentElements = searchName(false); 
 		
+		if(studentElements.size() == 0) {
+			return null;
+		}
+		
 		System.out.println("Choose number of student:");
 		for(int i=0;i<studentElements.size();i++) {
 			Student s = studentElements.get(i).getContent();
@@ -268,6 +274,10 @@ public class Main {
 		name = student.getName();
 		Student removedA = nameList.remove(name, mn);
 		Student removedB = numberList.remove(mn);
+		if(removedA == null || removedB == null) {
+			System.out.println("An error occured while deleting!");
+			return null;
+		}
 		if(!removedA.equals(removedB)) {
 			System.out.println("Something went wrong!"); 
 			return null;
@@ -282,10 +292,19 @@ public class Main {
 		boolean loop = true;
 		
 		Student searched = this.searchNumber(false);
+		
+		if(searched == null) {
+			return null;
+		}
+		
 		String name = searched.getName();
 		mn = searched.getMatriculationNumber();
 		Student removedA = nameList.remove(name, mn);
 		Student removedB = numberList.remove(mn);
+		if(removedA == null || removedB == null) {
+			System.out.println("An error occured while deleting!");
+			return null;
+		}
 		if(!removedA.equals(removedB)) {
 			System.out.println("Something went wrong!"); 
 			return null;
@@ -397,9 +416,11 @@ public class Main {
 	
 	
 	private void printArray() {
+		System.out.println("\n--- Secret Array! ---");
 		for(Student s :data) {
 			printStudent(s);
 		}
+		System.out.println("---------------------\n");
 	}
 
 	private void empty() {
